@@ -10,7 +10,19 @@ const server = http.createServer();
 
 server.on('request', (req, res) => {
   if (bare.shouldRoute(req)) {
-    bare.routeRequest(req, res);
+    // Wrap routeRequest to catch RangeError from Node.js v20+ status code validation
+    Promise.resolve()
+      .then(() => bare.routeRequest(req, res))
+      .catch((err) => {
+        if (!res.headersSent) {
+          try {
+            res.writeHead(500);
+            res.end(JSON.stringify({ code: 'UNKNOWN', id: 'error.RangeError', message: err.message }));
+          } catch (_) {
+            res.end();
+          }
+        }
+      });
   } else {
     serve.serve(req, res);
   }
