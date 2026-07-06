@@ -17,7 +17,7 @@ frame.onload = function(){
   if(this.contentWindow.location.pathname.startsWith("/service/")) {
     document.body.style.background = "none";
   } else {
-    document.body.style.background = "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/img/space-tint.png')";
+    document.body.style.background = "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/img/kiminonaha.png')";
   }
 }
 
